@@ -3,18 +3,47 @@ package de.mlunkeit.gui.views;
 import de.mlunkeit.gui.View;
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class MenuView extends View
 {
+    private final Image dirtTexture;
+    private final Image grassTexture;
 
     private int selectedIndex = 0;
 
     private final int elements = 2;
 
+    public MenuView()
+    {
+        try
+        {
+            dirtTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/dirt.png")));
+            grassTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/grass.png")));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void drawTextInCenter(Graphics2D g, String text, int width, int y)
     {
         g.drawString(text, width/2 - g.getFontMetrics().stringWidth(text) / 2, y);
+    }
+
+    private void drawBackground(Graphics2D g, int width, int height)
+    {
+        for(int x = 0; x < width; x += 64)
+        {
+            for(int y = 0; y < height; y += 64)
+            {
+                g.drawImage(y == 0 ? grassTexture : dirtTexture, x, y, 64, 64, null);
+            }
+        }
     }
 
     @Override
@@ -26,11 +55,10 @@ public class MenuView extends View
     @Override
     public void render(@NotNull Graphics2D g, int width, int height)
     {
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, width, height);
+        drawBackground(g, width, height);
 
         if (selectedIndex == 0)
-            g.setColor(Color.BLACK);
+            g.setColor(Color.WHITE);
         else
             g.setColor(Color.GRAY);
 
@@ -38,7 +66,7 @@ public class MenuView extends View
         drawTextInCenter(g, selectedIndex == 0 ? "> Start <" : "Start", width, height/2);
 
         if (selectedIndex == 1)
-            g.setColor(Color.BLACK);
+            g.setColor(Color.WHITE);
         else
             g.setColor(Color.GRAY);
 

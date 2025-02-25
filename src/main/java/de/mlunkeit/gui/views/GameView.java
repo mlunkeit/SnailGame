@@ -35,10 +35,20 @@ public class GameView extends View
 
     private long distance = 0;
 
+    private final Image grassTexture;
+    private final Image dirtTexture;
+
     public GameView()
     {
-        // v = a*t
-        // s = 1/2*a*t^2
+        try
+        {
+            grassTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/grass.png")));
+            dirtTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/dirt.png")));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     private int height(long time)
@@ -63,26 +73,16 @@ public class GameView extends View
 
     private void drawGrassLine(Graphics2D g, int y, int width, int height, int offset)
     {
-        try
+        offset = offset % 64;
+
+        for (int x = -offset; x < width; x += 64)
         {
-            Image grassTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/grass.png")));
-            Image dirtTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/dirt.png")));
+            g.drawImage(grassTexture, x, y, 64, 64, null);
 
-            offset = offset % 64;
-
-            for (int x = -offset; x < width; x += 64)
+            for(int y2 = y + 64; y2 < height; y2 += 64)
             {
-                g.drawImage(grassTexture, x, y, 64, 64, null);
-
-                for(int y2 = y + 64; y2 < height; y2 += 64)
-                {
-                    g.drawImage(dirtTexture, x, y2, 64, 64, null);
-                }
+                g.drawImage(dirtTexture, x, y2, 64, 64, null);
             }
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
         }
     }
 
