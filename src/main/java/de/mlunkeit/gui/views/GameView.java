@@ -1,6 +1,7 @@
 package de.mlunkeit.gui.views;
 
 import de.mlunkeit.gui.View;
+import de.mlunkeit.gui.elements.Cloud;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -14,6 +15,8 @@ import java.util.Set;
 public class GameView extends View
 {
     private final Random random = new Random();
+
+    private final Set<Cloud> clouds = new HashSet<>();
 
     private final Set<Dimension> obstacles = new HashSet<>();
 
@@ -66,9 +69,26 @@ public class GameView extends View
         return 4 + (int) (a*(((double) time)/1000));
     }
 
-    private void drawClouds(Graphics2D g, int width, int height)
+    private void drawClouds(Graphics2D g, int width, int height, int velocity)
     {
+        Set<Cloud> removableClouds = new HashSet<>();
 
+        for (Cloud cloud : clouds)
+        {
+            cloud.render(g);
+
+            cloud.move(velocity/2);
+
+            if (!cloud.visible())
+                removableClouds.add(cloud);
+        }
+
+        if (!removableClouds.isEmpty())
+        {
+            clouds.add(new Cloud(random.nextInt(32, 96), width + 96, random.nextInt(20, height/3)));
+        }
+
+        removableClouds.forEach(clouds::remove);
     }
 
     private void drawGrassLine(Graphics2D g, int y, int width, int height, int offset)
@@ -96,6 +116,7 @@ public class GameView extends View
         //velocity = 5;
         begin = System.currentTimeMillis();
         obstacles.clear();
+        clouds.clear();
     }
 
     @Override
@@ -103,6 +124,14 @@ public class GameView extends View
     {
         long time = System.currentTimeMillis() - begin + 1;
         int velocity = velocity(time);
+
+        if (clouds.isEmpty())
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                clouds.add(new Cloud(random.nextInt(32, 96), i*(width/10), random.nextInt(20, height/3)));
+            }
+        }
 
         if(System.currentTimeMillis() - lastObstacleSpawned > spawnNextObstacle)
         {
@@ -129,6 +158,8 @@ public class GameView extends View
 
         g.setColor(new Color(0xa0d9ef));
         g.fillRect(0, 0, width, height);
+
+        drawClouds(g, width, height, velocity);
 
         g.setColor(Color.BLACK);
         g.setFont(new Font(g.getFont().getName(), Font.PLAIN, 20));
