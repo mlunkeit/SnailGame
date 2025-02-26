@@ -9,15 +9,17 @@ public class Cloud implements GraphicalElement
 {
     private final int size;
     private final Image texture;
+    private final float velocityFactor;
 
-    private int x;
-    private int y;
+    private float x;
+    private final int y;
 
     public Cloud(int size, int x, int y, int type)
     {
         this.size = size;
         this.x = x;
         this.y = y;
+        velocityFactor = ((float) size) / 8;
 
         try
         {
@@ -34,12 +36,13 @@ public class Cloud implements GraphicalElement
         this(size, x, y, 0);
     }
 
-    public void move(int x)
+    public void move(int velocity)
     {
-        this.x -= x;
+        this.x -= ((float) velocity/velocityFactor);
     }
 
-    public boolean visible()
+    @Override
+    public boolean isVisible()
     {
         return -size <= x;
     }
@@ -47,7 +50,6 @@ public class Cloud implements GraphicalElement
     @Override
     public void render(Graphics2D g)
     {
-        System.out.println("Drawing cloud at "+x+" "+y);
-        g.drawImage(texture, x, y, size, size, null);
+        g.drawImage(texture, (int) x, y, size, size, null);
     }
 }

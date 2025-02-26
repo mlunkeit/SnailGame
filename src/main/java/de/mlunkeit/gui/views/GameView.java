@@ -2,6 +2,7 @@ package de.mlunkeit.gui.views;
 
 import de.mlunkeit.gui.View;
 import de.mlunkeit.gui.elements.Cloud;
+import de.mlunkeit.gui.elements.Obstacle;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -18,7 +19,7 @@ public class GameView extends View
 
     private final Set<Cloud> clouds = new HashSet<>();
 
-    private final Set<Dimension> obstacles = new HashSet<>();
+    private final Set<Obstacle> obstacles = new HashSet<>();
 
     private long jumpBegin;
 
@@ -30,11 +31,6 @@ public class GameView extends View
     private int spawnNextObstacle = 0;
 
     private int score = 0;
-
-    private final int maxVelocity = 20;
-
-    private long velocityLastIncreased = 0;
-    private final int velocityIncrease = 10000;
 
     private long distance = 0;
 
@@ -57,7 +53,7 @@ public class GameView extends View
     private int height(long time)
     {
         final float g = 5000f;
-        final float v0 = 1.2f;
+        final float v0 = 1.3f;
 
         return (int) ((-0.5* g *Math.pow(((double) time)/1000, 2)) + (v0 *((double) time)));
     }
@@ -66,7 +62,7 @@ public class GameView extends View
     {
         final float a = 0.1f;
 
-        return 4 + (int) (a*(((double) time)/1000));
+        return 7 + (int) (a*(((double) time)/1000));
     }
 
     private void drawClouds(Graphics2D g, int width, int height, int velocity)
@@ -79,7 +75,7 @@ public class GameView extends View
 
             cloud.move(velocity/2);
 
-            if (!cloud.visible())
+            if (!cloud.isVisible())
                 removableClouds.add(cloud);
         }
 
@@ -91,15 +87,30 @@ public class GameView extends View
         removableClouds.forEach(clouds::remove);
     }
 
+    private void drawObstacles(Graphics2D g, int width, int height, int velocity) {
+        Set<Obstacle> removableObstacles = new HashSet<>();
+
+        for (Obstacle obstacle : obstacles) {
+            obstacle.render(g);
+
+            obstacle.move(velocity);
+
+            if (!obstacle.isVisible())
+                removableObstacles.add(obstacle);
+        }
+
+        removableObstacles.forEach(obstacles::remove);
+    }
+
     private void drawGrassLine(Graphics2D g, int y, int width, int height, int offset)
     {
-        offset = offset % 64;
+        offset %= 64;
 
         for (int x = -offset; x < width; x += 64)
         {
             g.drawImage(grassTexture, x, y, 64, 64, null);
 
-            for(int y2 = y + 64; y2 < height; y2 += 64)
+            for (int y2 = y + 64; y2 < height; y2 += 64)
             {
                 g.drawImage(dirtTexture, x, y2, 64, 64, null);
             }
@@ -113,7 +124,6 @@ public class GameView extends View
         lastObstacleSpawned = 0;
         jumpBegin = 0;
         jumpActive = false;
-        //velocity = 5;
         begin = System.currentTimeMillis();
         obstacles.clear();
         clouds.clear();
@@ -135,7 +145,7 @@ public class GameView extends View
 
         if(System.currentTimeMillis() - lastObstacleSpawned > spawnNextObstacle)
         {
-            obstacles.add(new Dimension(2*width/3, random.nextInt(20, 100)));
+            obstacles.add(new Obstacle(Obstacle.Type.STEM, width, 3*height/4));
             lastObstacleSpawned = System.currentTimeMillis();
             spawnNextObstacle = random.nextInt(5000/velocity, 15000/velocity);
         }
@@ -156,39 +166,29 @@ public class GameView extends View
         int x = width / 3;
         int y = 3*height / 4 - deltaY;
 
-        g.setColor(new Color(0xa0d9ef));
+        g.setColor(new Color(0x85D0FD));
         g.fillRect(0, 0, width, height);
 
         drawClouds(g, width, height, velocity);
 
+        drawObstacles(g, width, height, velocity);
+
+        for (Obstacle obstacle : obstacles)
+        {
+            if(obstacle.collides(x, y, velocity))
+                showView("game-over");
+            else if(obstacle.scores(x, y, velocity))
+                score++;
+        }
+
         g.setColor(Color.BLACK);
         g.setFont(new Font(g.getFont().getName(), Font.PLAIN, 20));
 
-        g.drawString("Score: " + score, 20, 20);
+        String scoreDisplay = String.valueOf(score);
+
+        g.drawString(scoreDisplay, x - 4 - g.getFontMetrics().stringWidth(scoreDisplay) / 2, y-30);
 
         g.drawRect(x-10, y-10, 10, 10);
-
-        Set<Dimension> obstaclesToRemove = new HashSet<>();
-
-        for (Dimension obstacle : obstacles)
-        {
-            g.fillRect(x + obstacle.width, 3*height/4 - obstacle.height, 10, obstacle.height);
-
-            if (-velocity < obstacle.width && obstacle.width <= 0)
-            {
-                if (obstacle.height > deltaY)
-                    showView("game-over");
-                else
-                    score++;
-            }
-
-            obstacle.setSize(obstacle.width - velocity, obstacle.height);
-
-            if (obstacle.width < -width/2)
-                obstaclesToRemove.add(obstacle);
-        }
-
-        obstaclesToRemove.forEach(obstacles::remove);
 
         distance += velocity;
 

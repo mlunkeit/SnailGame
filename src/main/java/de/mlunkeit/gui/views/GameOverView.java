@@ -37,7 +37,7 @@ public class GameOverView extends View
     @Override
     public void actionPerformed(@NotNull Object action)
     {
-        if(action.equals("key-enter") || action.equals("key-space"))
+        if(action.equals("key-enter"))
             showView("menu");
     }
 }
