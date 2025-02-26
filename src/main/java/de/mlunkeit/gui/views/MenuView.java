@@ -84,8 +84,8 @@ public class MenuView extends View
         {
             switch(selectedIndex)
             {
-                case 0 -> showView("game");
-                case 1 -> System.exit(0);
+                case 0: showView("game"); break;
+                case 1: System.exit(0); break;
             }
         }
     }

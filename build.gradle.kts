@@ -6,6 +6,17 @@ plugins {
 group = "de.mlunkeit"
 version = "1.0-SNAPSHOT"
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+tasks.compileJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
 repositories {
     mavenCentral()
 }

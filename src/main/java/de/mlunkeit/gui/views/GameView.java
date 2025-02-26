@@ -72,6 +72,11 @@ public class GameView extends View
         return 7 + (int) (a*(((double) time)/1000));
     }
 
+    private int random(int min, int max)
+    {
+        return random.nextInt(max - min) + min;
+    }
+
     private void drawClouds(Graphics2D g, int width, int height, int velocity)
     {
         Set<Cloud> removableClouds = new HashSet<>();
@@ -88,7 +93,7 @@ public class GameView extends View
 
         if (!removableClouds.isEmpty())
         {
-            clouds.add(new Cloud(random.nextInt(32, 96), width + 96, random.nextInt(20, height/3)));
+            clouds.add(new Cloud(random(32, 96), width + 96, random(20, height/3)));
         }
 
         removableClouds.forEach(clouds::remove);
@@ -146,7 +151,7 @@ public class GameView extends View
         {
             for (int i = 0; i < 10; i++)
             {
-                clouds.add(new Cloud(random.nextInt(32, 96), i*(width/10), random.nextInt(20, height/3)));
+                clouds.add(new Cloud(random(32, 96), i*(width/10), random(20, height/3)));
             }
         }
 
@@ -154,7 +159,7 @@ public class GameView extends View
         {
             obstacles.add(new Obstacle(Obstacle.Type.STEM, width, 3*height/4));
             lastObstacleSpawned = System.currentTimeMillis();
-            spawnNextObstacle = random.nextInt(5000/velocity, 15000/velocity);
+            spawnNextObstacle = random(5000/velocity, 15000/velocity);
         }
 
         int deltaY = 0;
