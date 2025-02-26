@@ -33,7 +33,7 @@ public class Cloud implements GraphicalElement
 
     public Cloud(int size, int x, int y)
     {
-        this(size, x, y, 0);
+        this(size, x, y, 1);
     }
 
     public void move(int velocity)

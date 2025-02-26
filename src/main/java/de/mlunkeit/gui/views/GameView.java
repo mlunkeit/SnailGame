@@ -37,12 +37,19 @@ public class GameView extends View
     private final Image grassTexture;
     private final Image dirtTexture;
 
+    private final Image snail1Texture;
+    private final Image snail2Texture;
+    private final Image snailJumpTexture;
+
     public GameView()
     {
         try
         {
             grassTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/grass.png")));
             dirtTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/dirt.png")));
+            snail1Texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail1.png")));
+            snail2Texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail2.png")));
+            snailJumpTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail3.png")));
         }
         catch (IOException e)
         {
@@ -188,7 +195,12 @@ public class GameView extends View
 
         g.drawString(scoreDisplay, x - 4 - g.getFontMetrics().stringWidth(scoreDisplay) / 2, y-30);
 
-        g.drawRect(x-10, y-10, 10, 10);
+        boolean useSnail1 = (distance / 200) % 2 == 0;
+
+        //g.fillRect(x-10, y-10, 10, 10);
+        Image texture = deltaY > 0 ? snailJumpTexture : (useSnail1 ? snail1Texture : snail2Texture);
+
+        g.drawImage(texture, x-32, y-32, 32, 32, null);
 
         distance += velocity;
 
