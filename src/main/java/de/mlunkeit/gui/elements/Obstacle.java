@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class Obstacle implements GraphicalElement
 {
+    private boolean scored;
+
     private final Image texture;
 
     private int x;
@@ -50,14 +52,24 @@ public class Obstacle implements GraphicalElement
         return obstacleHeight;
     }
 
+    private boolean checkX(int x, int velocity)
+    {
+        return (this.x + 2 * velocity < x && x - 2 * velocity <= this.x + obstacleWidth);
+    }
+
     public boolean collides(int x, int y, int velocity)
     {
-        return (this.x <= x && x < this.x + this.getObstacleWidth()) && y > this.y - drawingSize;
+        return checkX(x, velocity) && y > this.y - drawingSize;
     }
 
     public boolean scores(int x, int y, int velocity)
     {
-        return (x - velocity < this.x && this.x <= x) && y <= this.y - drawingSize;
+        if (scored)
+            return false;
+
+        scored = checkX(x, velocity) && y < this.y - drawingSize;
+
+        return scored;
     }
 
     @Override
@@ -74,7 +86,8 @@ public class Obstacle implements GraphicalElement
 
     public enum Type
     {
-        STEM("/stem.png", 28, 64,64);
+        STEM("/stem.png", 28, 64,64),
+        BUSH("/bush.png", 40, 64,64);
 
         private final String path;
         private final int height;

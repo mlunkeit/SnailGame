@@ -4,11 +4,14 @@ import de.mlunkeit.gui.View;
 import de.mlunkeit.controller.KeyController;
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainFrame extends JFrame
 {
@@ -22,11 +25,23 @@ public class MainFrame extends JFrame
     {
         super("blub");
 
+        try
+        {
+            Image icon = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail1.png")));
+
+            setIconImage(icon);
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+
         setSize(800, 600);
         MainPanel mainPanel = new MainPanel();
         add(mainPanel);
+        setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         mainPanel.onRender(graphics -> {
             if(currentView != null)

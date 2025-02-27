@@ -157,7 +157,9 @@ public class GameView extends View
 
         if(System.currentTimeMillis() - lastObstacleSpawned > spawnNextObstacle)
         {
-            obstacles.add(new Obstacle(Obstacle.Type.STEM, width, 3*height/4));
+            Obstacle.Type type = Obstacle.Type.values()[random.nextInt(Obstacle.Type.values().length)];
+
+            obstacles.add(new Obstacle(type, width, 3*height/4));
             lastObstacleSpawned = System.currentTimeMillis();
             spawnNextObstacle = random(5000/velocity, 15000/velocity);
         }
@@ -198,14 +200,14 @@ public class GameView extends View
 
         String scoreDisplay = String.valueOf(score);
 
-        g.drawString(scoreDisplay, x - 4 - g.getFontMetrics().stringWidth(scoreDisplay) / 2, y-30);
+        g.drawString(scoreDisplay, x - 6 - g.getFontMetrics().stringWidth(scoreDisplay) / 2, y-60);
 
         boolean useSnail1 = (distance / 200) % 2 == 0;
 
         //g.fillRect(x-10, y-10, 10, 10);
         Image texture = deltaY > 0 ? snailJumpTexture : (useSnail1 ? snail1Texture : snail2Texture);
 
-        g.drawImage(texture, x-32, y-32, 32, 32, null);
+        g.drawImage(texture, x-48, y-48, 48, 48, null);
 
         distance += velocity;
 
