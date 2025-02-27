@@ -1,5 +1,6 @@
 package de.mlunkeit.gui.views;
 
+import de.mlunkeit.gui.FontManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -19,13 +20,13 @@ public class GameOverView extends View
         g.fillRect(0, 0, width, height);
         g.setColor(Color.RED);
 
-        Font font = new Font(g.getFont().getName(), Font.BOLD, 40);
+        Font font = FontManager.reformatFont(g.getFont().getName(), Font.BOLD, 40);
         String display = "Game Over!";
 
         g.setFont(font);
         g.drawString(display, width / 2 - g.getFontMetrics().stringWidth(display) / 2, height / 2 - 20);
 
-        font = new Font(g.getFont().getName(), Font.PLAIN, 18);
+        font = FontManager.reformatFont(g.getFont().getName(), Font.PLAIN, 18);
         display = "Press ENTER to continue";
 
         g.setColor(Color.WHITE);

@@ -1,5 +1,7 @@
 package de.mlunkeit.gui.wrapping;
 
+import de.mlunkeit.gui.ResourceLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -16,9 +18,7 @@ public class MainPanel extends JPanel
     {
         try
         {
-            font = Font.createFont(Font.PLAIN, Objects.requireNonNull(getClass().getResourceAsStream("/font.ttf")));
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(font);
+            font = ResourceLoader.loadFont("/font.ttf");
         }
         catch (FontFormatException | IOException e)
         {

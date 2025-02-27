@@ -1,5 +1,6 @@
 package de.mlunkeit.gui.views;
 
+import de.mlunkeit.gui.FontManager;
 import de.mlunkeit.gui.ResourceLoader;
 import de.mlunkeit.gui.elements.Cloud;
 import de.mlunkeit.gui.elements.Obstacle;
@@ -194,7 +195,7 @@ public class GameView extends View
         }
 
         g.setColor(Color.BLACK);
-        g.setFont(new Font(g.getFont().getName(), Font.PLAIN, 20));
+        g.setFont(FontManager.reformatFont(g.getFont().getName(), Font.PLAIN, 20));
 
         String scoreDisplay = String.valueOf(score);
 

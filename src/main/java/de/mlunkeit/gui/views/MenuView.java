@@ -1,5 +1,6 @@
 package de.mlunkeit.gui.views;
 
+import de.mlunkeit.gui.FontManager;
 import de.mlunkeit.gui.ResourceLoader;
 import org.jetbrains.annotations.NotNull;
 
@@ -60,7 +61,7 @@ public class MenuView extends View
         else
             g.setColor(Color.GRAY);
 
-        g.setFont(new Font(g.getFont().getName(), Font.BOLD, 20));
+        g.setFont(FontManager.reformatFont(g.getFont().getName(), Font.BOLD, 20));
         drawTextInCenter(g, selectedIndex == 0 ? "> Start <" : "Start", width, height/2);
 
         if (selectedIndex == 1)
