@@ -1,9 +1,9 @@
 package de.mlunkeit.gui.elements;
 
-import javax.imageio.ImageIO;
+import de.mlunkeit.ResourceLoader;
+
 import java.awt.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Cloud implements GraphicalElement
 {
@@ -23,7 +23,7 @@ public class Cloud implements GraphicalElement
 
         try
         {
-            texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/cloud"+type+".png")));
+            texture = ResourceLoader.loadImage("/cloud"+type+".png");
         }
         catch (IOException e)
         {

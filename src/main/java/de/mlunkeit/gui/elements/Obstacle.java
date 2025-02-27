@@ -1,9 +1,9 @@
 package de.mlunkeit.gui.elements;
 
-import javax.imageio.ImageIO;
+import de.mlunkeit.ResourceLoader;
+
 import java.awt.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Obstacle implements GraphicalElement
 {
@@ -29,7 +29,7 @@ public class Obstacle implements GraphicalElement
 
         try
         {
-            texture = ImageIO.read(Objects.requireNonNull(getClass().getResource(type.path)));
+            texture = ResourceLoader.loadImage(type.path);
         }
         catch (IOException e)
         {
@@ -59,7 +59,7 @@ public class Obstacle implements GraphicalElement
 
     public boolean collides(int x, int y, int velocity)
     {
-        return checkX(x, velocity) && y > this.y - drawingSize;
+        return checkX(x, velocity) && y > this.y - getObstacleHeight();
     }
 
     public boolean scores(int x, int y, int velocity)
@@ -67,7 +67,7 @@ public class Obstacle implements GraphicalElement
         if (scored)
             return false;
 
-        scored = checkX(x, velocity) && y < this.y - drawingSize;
+        scored = checkX(x, velocity) && y < this.y - getObstacleHeight();
 
         return scored;
     }

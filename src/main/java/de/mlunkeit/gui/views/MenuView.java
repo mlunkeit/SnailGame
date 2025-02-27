@@ -1,5 +1,6 @@
 package de.mlunkeit.gui.views;
 
+import de.mlunkeit.ResourceLoader;
 import de.mlunkeit.gui.View;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,8 +22,8 @@ public class MenuView extends View
     {
         try
         {
-            dirtTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/dirt.png")));
-            grassTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/grass.png")));
+            dirtTexture = ResourceLoader.loadImage("/dirt.png");
+            grassTexture = ResourceLoader.loadImage("/grass.png");
         }
         catch (IOException e)
         {

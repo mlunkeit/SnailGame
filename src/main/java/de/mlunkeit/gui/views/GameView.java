@@ -1,15 +1,14 @@
 package de.mlunkeit.gui.views;
 
+import de.mlunkeit.ResourceLoader;
 import de.mlunkeit.gui.View;
 import de.mlunkeit.gui.elements.Cloud;
 import de.mlunkeit.gui.elements.Obstacle;
 import org.jetbrains.annotations.NotNull;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -45,11 +44,11 @@ public class GameView extends View
     {
         try
         {
-            grassTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/grass.png")));
-            dirtTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/dirt.png")));
-            snail1Texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail1.png")));
-            snail2Texture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail2.png")));
-            snailJumpTexture = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail3.png")));
+            grassTexture = ResourceLoader.loadImage("/grass.png");
+            dirtTexture = ResourceLoader.loadImage("/dirt.png");
+            snail1Texture = ResourceLoader.loadImage("/snail1.png");
+            snail2Texture = ResourceLoader.loadImage("/snail2.png");
+            snailJumpTexture = ResourceLoader.loadImage("/snail3.png");
         }
         catch (IOException e)
         {
