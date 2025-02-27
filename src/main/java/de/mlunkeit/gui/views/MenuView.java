@@ -1,13 +1,10 @@
 package de.mlunkeit.gui.views;
 
-import de.mlunkeit.ResourceLoader;
-import de.mlunkeit.gui.View;
+import de.mlunkeit.gui.ResourceLoader;
 import org.jetbrains.annotations.NotNull;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class MenuView extends View
 {

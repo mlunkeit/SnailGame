@@ -1,6 +1,5 @@
 package de.mlunkeit.gui.views;
 
-import de.mlunkeit.gui.View;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

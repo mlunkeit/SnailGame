@@ -1,4 +1,4 @@
-package de.mlunkeit.gui;
+package de.mlunkeit.gui.views;
 
 import de.mlunkeit.gui.wrapping.MainFrame;
 import org.jetbrains.annotations.NotNull;

@@ -1,6 +1,6 @@
 package de.mlunkeit.gui.wrapping;
 
-import de.mlunkeit.gui.View;
+import de.mlunkeit.gui.views.View;
 import de.mlunkeit.controller.KeyController;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,6 +1,6 @@
 package de.mlunkeit.gui.elements;
 
-import de.mlunkeit.ResourceLoader;
+import de.mlunkeit.gui.ResourceLoader;
 
 import java.awt.*;
 import java.io.IOException;

@@ -1,7 +1,6 @@
 package de.mlunkeit.gui.views;
 
-import de.mlunkeit.ResourceLoader;
-import de.mlunkeit.gui.View;
+import de.mlunkeit.gui.ResourceLoader;
 import de.mlunkeit.gui.elements.Cloud;
 import de.mlunkeit.gui.elements.Obstacle;
 import org.jetbrains.annotations.NotNull;

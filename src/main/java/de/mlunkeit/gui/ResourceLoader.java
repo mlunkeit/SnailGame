@@ -1,4 +1,4 @@
-package de.mlunkeit;
+package de.mlunkeit.gui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

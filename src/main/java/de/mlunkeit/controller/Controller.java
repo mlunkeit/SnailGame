@@ -1,4 +1,4 @@
-package de.mlunkeit.gui;
+package de.mlunkeit.controller;
 
 import de.mlunkeit.gui.wrapping.MainFrame;
 
