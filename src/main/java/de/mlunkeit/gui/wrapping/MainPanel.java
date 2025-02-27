@@ -34,6 +34,8 @@ public class MainPanel extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {
+        Toolkit.getDefaultToolkit().sync();
+
         long currentTime = System.currentTimeMillis();
         g.setFont(font);
         renderer.accept(g);
