@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,6 +36,10 @@ public class MainFrame extends JFrame
         {
             e.printStackTrace();
         }
+
+        setCursor(getToolkit().createCustomCursor(
+            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+            "null"));
 
         setSize(800, 600);
         MainPanel mainPanel = new MainPanel();

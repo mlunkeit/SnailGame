@@ -66,9 +66,15 @@ public class GameView extends View
 
     private int velocity(long time)
     {
-        final float a = 0.1f;
+        //final float a = 0.04f;
+        //final int v = (int) (a*(((double) time)/1000));
 
-        return 7 + (int) (a*(((double) time)/1000));
+        if (time < 2000)
+            return 7;
+
+        final int v = (int) (Math.log((((double) time)/ 1000)) / Math.log(4));
+
+        return 7 + v;
     }
 
     private int random(int min, int max)

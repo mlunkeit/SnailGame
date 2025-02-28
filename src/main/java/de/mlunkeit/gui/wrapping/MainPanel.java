@@ -5,7 +5,6 @@ import de.mlunkeit.gui.ResourceLoader;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class MainPanel extends JPanel
