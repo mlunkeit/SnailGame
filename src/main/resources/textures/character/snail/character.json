@@ -1,0 +1,8 @@
+{
+  "name": "snail",
+  "size": 48,
+  "frames": {
+    "walk": ["1.png", "2.png"],
+    "jump": ["jump.png"]
+  }
+}

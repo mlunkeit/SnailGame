@@ -28,7 +28,7 @@ public class MainFrame extends JFrame
 
         try
         {
-            Image icon = ImageIO.read(Objects.requireNonNull(getClass().getResource("/snail1.png")));
+            Image icon = ImageIO.read(Objects.requireNonNull(getClass().getResource("/textures/character/snail/1.png")));
 
             setIconImage(icon);
         }

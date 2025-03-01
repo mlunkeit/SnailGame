@@ -23,7 +23,7 @@ public class Cloud implements GraphicalElement
 
         try
         {
-            texture = ResourceLoader.loadImage("/cloud"+type+".png");
+            texture = ResourceLoader.loadImage("/textures/cloud/"+type+".png");
         }
         catch (IOException e)
         {

@@ -20,8 +20,8 @@ public class MenuView extends View
     {
         try
         {
-            dirtTexture = ResourceLoader.loadImage("/dirt.png");
-            grassTexture = ResourceLoader.loadImage("/grass.png");
+            dirtTexture = ResourceLoader.loadImage("/textures/block/dirt.png");
+            grassTexture = ResourceLoader.loadImage("/textures/block/grass.png");
         }
         catch (IOException e)
         {

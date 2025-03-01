@@ -86,8 +86,8 @@ public class Obstacle implements GraphicalElement
 
     public enum Type
     {
-        STEM("/stem.png", 28, 64,64),
-        BUSH("/bush.png", 40, 64,64);
+        STEM("/textures/obstacle/stem.png", 28, 64,64),
+        BUSH("/textures/obstacle/bush.png", 40, 64,64);
 
         private final String path;
         private final int height;

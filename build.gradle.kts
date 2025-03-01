@@ -24,6 +24,9 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/org.jetbrains/annotations
     implementation("org.jetbrains:annotations:26.0.2")
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.12.1")
 }
 
 tasks.jar {
