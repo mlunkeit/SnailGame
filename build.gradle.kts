@@ -8,13 +8,13 @@ version = "1.0-SNAPSHOT"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 tasks.compileJava {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
 }
 
 repositories {
